@@ -1,12 +1,16 @@
 #! /bin/sh
-#Brandon Dave
+# Brandon Dave
 #CEG3120
+#Project 1
 #
 #
-#
-#
-#Creates PATH if nonexistant
-if [ ! -d $home/bin ]; then
-        export PATH="$home/bin:$PATH"
-        echo "\$PATH created"
+# Create PATH if not exist
+if [ ! -d /usr/bin/ ]; then
+	export PATH="$HOME/bin:$PATH"
+	echo "\$PATH created"
 fi
+
+# Refresh .bashrc
+source ~/.bashrc
+echo ".bashrc reloaded"
+
