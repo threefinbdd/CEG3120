@@ -19,6 +19,12 @@ if ! grep -q "aws-ssh" .bashrc ;then
     	echo alias aws-ssh="'ssh -i BDD-Student_CEG3120_key.pem ubuntu@107.20.210.5'" >> .bashrc
 fi
 
+## Re-alias used to remove unstored aliases
+## and refresh alias list from .bashrc
+if ! grep -q "re-alias" .bashrc ;then
+	echo alias re-alias="unalias -a && . ~/.bashrc && alias"
+fi
+
 # Refresh .bashrc
 . ~/.bashrc
 echo ".bashrc reloaded"
