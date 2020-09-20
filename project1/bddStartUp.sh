@@ -25,16 +25,16 @@ setupAlias () { # Create custom alias if necessary
 ##  Requires refresh on .bashrc file
 
 	if ! grep -q "aws-ssh" .bashrc ;then 
-    		echo alias aws-ssh="'ssh -i BDD-Student_CEG3120_key.pem ubuntu@107.20.210.5'" >> .bashrc
+    		echo alias aws-ssh="'ssh -i BDD-Student_CEG3120_key.pem ubuntu@107.20.210.5'" >> ~/.bashrc
 	fi
 ## Re-alias used to remove unstored aliases
 ## and refresh alias list from .bashrc
 	if ! grep -q "re-alias" .bashrc ;then
-		echo alias re-alias="'unalias -a && . ~/.bashrc && alias'" >> .bashrc
+		echo alias re-alias="'unalias -a && . ~/.bashrc && alias'" >> ~/.bashrc
 	fi
 ## clearHistory used to reset .bash_history
 	if ! grep -q "clearHistory" .bashrc ;then
-		echo alias clearHistory="'echo \"\" > .bash_history'" >> .bashrc
+		echo alias clearHistory="'echo \"\" > .bash_history'" >> ~/.bashrc
 	fi
 }
 
