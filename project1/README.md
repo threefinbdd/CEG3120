@@ -19,4 +19,4 @@ My main focus on Project 1 is to create a script that is the be-all-that-ends-al
 > >    - \-v : Pre-config VIM
 > >    - \-p : Export /scripts/ directory
 > >    - \-m : Make changes to the MOTD
-> >    - /-r : Refresh .bashrc within Script process
+> >    - \-r : Refresh .bashrc within Script process
