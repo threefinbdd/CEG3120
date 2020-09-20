@@ -24,7 +24,7 @@ setupAlias () { # Create custom alias if necessary
 ##  Requires refresh on .bashrc file
 
 	if ! grep -q "aws-ssh" .bashrc ;then 
-    		echo alias aws-ssh="'ssh -i BDD-Student_CEG3120_key.pem ubuntu@107.20.210.5'" >> ~/.bashrc
+    echo alias aws-ssh="'ssh -i BDD-Student_CEG3120_key.pem ubuntu@107.20.210.5'" >> ~/.bashrc
 	fi
 ## Re-alias used to remove unstored aliases
 ## and refresh alias list from .bashrc
@@ -37,8 +37,10 @@ setupAlias () { # Create custom alias if necessary
 	fi
 }
 
-vimSetUp ()  { # Set color preferences while using VIM
-	echo "vim"
+vimSetUp ()  { # Set preferences while using VIM
+	if [ -f vimrc ] ;then
+		sudo cp vimrc /etc/vim/vimrc
+	fi
 }
 
 initMotd () { # Re-configure Log-in Message/MotD
