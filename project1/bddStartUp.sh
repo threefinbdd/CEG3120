@@ -12,11 +12,10 @@ expPATH () { # Create PATH if not exist for script directory
 		echo "export PATH="$PATH:~/scripts"" >> ~/.profile
 		echo "\$PATH created"
 	fi
-## Copy script to directory	
-	if [ ! -f $HOME/scripts/bddStartUp.sh > /dev/null ]; then
-		cp $0 $HOME/scripts/bddStartUp.sh
-		echo "Copying bddStartUp.sh to $HOME/scripts"
-	fi
+## Copy script to directory
+	cp $0 $HOME/scripts/bddStartUp.sh
+	echo "Copying bddStartUp.sh to $HOME/scripts"
+
 }
 
 setupAlias () { # Create custom alias if necessary
@@ -42,14 +41,49 @@ vimSetUp ()  { # Set color preferences while using VIM
 	echo "vim"
 }
 
-motd () { # Re-configure Log-in Message/MotD
-	echo "motd"
+initMotd () { # Re-configure Log-in Message/MotD
+	if [ ! -f /etc/update-motd.d/01-bdd-motd ] ;then
+	        sudo touch /etc/update-motd.d/01-bdd-motd		
+		sudo chown ubuntu /etc/update-motd.d/01-bdd-motd
+	        sudo echo "#! /bin/bash " >> /etc/update-motd.d/01-bdd-motd	
+		sudo chmod -x /etc/update-motd.d/* # Disable all MOTD
+        	sudo chmod 755 /etc/update-motd.d/01-bdd-motd # Enable Custom Message
+	fi
+
+	echo 	"Would you like to [v]iew your available messages or	"
+	read -p "		   [e]dit your custom message?		" motdQuery
+        case $motdQuery in
+                v) chmodMotd 
+                ;;
+                e) customMotd
+                ;;
+                *) echo "Invalid entry. Please run the script again."
+        esac
+	
+}
+
+chmodMotd () { # Utilize pre-configured motd scripts
+        echo "Available MOTD to Enable/Disable: "
+        ls -lah /etc/update-motd.d/
+        read -p "Append bash script to your current motd? " append
+        if [ -f /etc/update-motd.d/$append ] ;then
+                sudo chmod +x /etc/update-motd.d/$append 
+	fi
+}
+
+customMotd () { # Prompts user to motd changes
+        echo "Current custom motd:"
+        cat /run/motd.dynamic
+        echo "Changes to your motd will override the existing message."
+	read -p "Enter in a new MOTD:	 " customMotd
+	echo "#! /bin/bash" > /etc/update-motd.d/01-bdd-motd
+	echo "echo \"$customMotd\" " >> /etc/update-motd.d/01-bdd-motd
+	echo "Re-login to see your new motd."
 }
 
 refreshBash () { # Refreshes the .bashrc file
 	. ~/.bashrc
 	echo ".bashrc reloaded"
-	echo ".bashrc should still be ran by user by running "source .bashrc""
 	userRefresh
 }
 
@@ -66,13 +100,14 @@ userRefresh () { # Prompts user to refresh .bashrc
 		userRefresh;
 		;;
 	esac
+	echo "Users should still run \"source .bashrc \" after the script runs."
 }
 
 install () { # Clean Install of all preferences
 	expPATH
 	setupAlias
 	vimSetUp
-	motd
+	initMotd
 	refreshBash
 }
 
@@ -80,7 +115,7 @@ usage (){ # Usage Guide
 	echo "Usage: $0 [-p Export a Scripts Directory]"
 	echo "		[-a Set Up Aliases]"	
 	echo "		[-v Install VIM plug-ins and preferences]"
-	echo "		[-m View the Message of the Day]	[-r Refresh the .bashrc]" 
+	echo "		[-m View/Edit the Message of the Day]	[-r Refresh the .bashrc]" 
 	echo "		[-i Clean install on to system]"
 	echo "For additional help, use -h to access the manual."
 }
@@ -99,7 +134,7 @@ helpPage () { # Help Page
         echo "Usage: 	[-p Export a Scripts Directory]"
         echo "          [-a Set Up Aliases]"  
      	echo "		[-v Install VIM plug ins and preferences]"
-	echo "		[-m View the Message of the Day]"
+	echo "		[-m View/Edit the Message of the Day]"
 	echo "		[-r Refresh the .bashrc]"
         echo "          [-i Clean install on to system]"
         echo "For additional help, use -h to access [THIS] manual."
@@ -125,7 +160,7 @@ do
 		;;
 		v) vimSetUp
 		;;
-		m) motd
+		m) initMotd
 		;;
 		r) refreshBash
 		;;
