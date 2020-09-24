@@ -6,10 +6,7 @@
 #
 
 init () { # Initial install of project repo
-  if [ ! -d $PWD/dave-ceg-3120-student/ ]
-    git clone https://github.com/BDDave-Student/dave-ceg3120-student.git
-    echo "Student git reposity was created in $PWD"
-  fi
+  git clone https://github.com/BDDave-Student/dave-ceg1220-student.git
 
 }
 
@@ -28,24 +25,21 @@ initPath () { # Create PATH if not exist for script directory
 }
 
 initAlias () { # Create custom alias if necessary
-##  If grep returns true,
-##  alias is made and stored in the .bashrc file
+##  If grep returns true, alias is made
+##  Else create alias and store in .bashrc
 ##  Requires refresh on .bashrc file
 
 	if ! grep -q "aws-ssh" ~/.bashrc ;then
     echo alias aws-ssh="'ssh -i BDD-Student_CEG3120_key.pem ubuntu@107.20.210.5'" >> ~/.bashrc
-    echo "Alias aws-ssh was created"
 	fi
 ## Re-alias used to remove unstored aliases
 ## and refresh alias list from .bashrc
 	if ! grep -q "re-alias" ~/.bashrc ;then
 		echo alias re-alias="'unalias -a && . ~/.bashrc && alias'" >> ~/.bashrc
-    echo "Alias re-alias was created"
 	fi
 ## clearHistory used to reset .bash_history
 	if ! grep -q "clearHistory" ~/.bashrc ;then
 		echo alias clearHistory="'echo \"\" > .bash_history'" >> ~/.bashrc
-    echo "Alias clearHistory was created"
 	fi
 }
 
@@ -53,7 +47,6 @@ initVim ()  { # Initialize preferences while using VIM
 ## Copies project's VIM preference to system
   if [ -f vimrc ] ;then
 		sudo cp vimrc /etc/vim/vimrc
-    echo "Configurations to VIM have been set to this system."
   else
     echo "No config file was found for VIM.  Using system settings."
   fi
@@ -66,16 +59,15 @@ initMotd () { # Initialize Log-in Message/MotD
     sudo echo "#! /bin/bash " >> /etc/update-motd.d/01-bdd-motd	
 		sudo echo "echo \"Welcome to the Ubuntu machine hosted by \"" >> /etc/update-motd.d/01-bdd-motd
     sudo echo "echo \"AWS.  This machine is used for CEG3120.\"" >> /etc/update-motd.d/01-bdd-motd
-  fi
     sudo chmod -x /etc/update-motd.d/* # Disable all MOTD
     sudo chmod 755 /etc/update-motd.d/01-bdd-motd # Enable Custom Message
-    sudo chmod 755 /etc/update-motd.d/50-landscape-sysinfo # Enable system info 
-
+    sudo chmod 755 /etc/update-motd.d/50-landscape-sysinfo
+  fi
 }
 
 modifyMotd (){ # Modifies MOTD after initial run
-	echo 	  "Would you like to [v]iew your available messages or	"
-	read -p "		               [e]dit your custom message?		    " motdQuery
+	echo 	"Would you like to [v]iew your available messages or	"
+	read -p "		   [e]dit your custom message?		" motdQuery
   case $motdQuery in
     v) chmodMotd 
       ;;
@@ -87,30 +79,12 @@ modifyMotd (){ # Modifies MOTD after initial run
 }
 
 chmodMotd () { # Utilize pre-configured motd scripts
-  read -p "Would you like to [a]ppend or [r]emove a message: " queryMotd
-  case $queryMotd in
-    a) echo "Available MOTD to Enable/Disable: "
-      ls -lah /etc/update-motd.d/
-      read -p "Append bash script to your current motd? " append
-      if [ -f /etc/update-motd.d/$append ] ;then
-        sudo chmod +x /etc/update-motd.d/$append
-        echo "To review the changes to your MOTD, exit and re-login."
-      else
-        echo "File was not found.  No changes have been made to your MOTD."
-      fi
-      ;;
-    r) echo "Available MOTD to Enable/Disable: "
-    ls -lah /etc/update-motd.d/
-    read -p "Remove bash script to your current motd? " disable
-    if [ -f /etc/update-motd.d/$disable ] then;
-      sudo chmod -x /etc/update-motd.d/$disable
-      echo "To review the changes to your MOTD, exit and re-login."
-    else
-      echo "File was not found.  No changes have been made to your MOTD."
-    fi
-    ;;
-  esac
-
+  echo "Available MOTD to Enable/Disable: "
+  ls -lah /etc/update-motd.d/
+  read -p "Append bash script to your current motd? " append
+  if [ -f /etc/update-motd.d/$append ] ;then
+    sudo chmod +x /etc/update-motd.d/$append 
+	fi
 }
 
 customMotd () { # Prompts user to motd changes
@@ -123,18 +97,26 @@ customMotd () { # Prompts user to motd changes
 	echo "Re-login to see your new motd."
 }
 
-initBash () { # Refreshes the .bashrc file
+refreshBash () { # Refreshes the .bashrc file
 	. ~/.bashrc
 	echo ".bashrc reloaded"
-  echo "Users are recommended to refresh the .bashrc by running either:"
-  echo "  source .bashrc"
-  echo "  bddStartUp.sh -r"
+	userRefresh
 }
 
-userReBash () { # Prompts user to refresh .bashrc
-  . ~/.bashrc;
-  echo "You have reloaded your .bashrc."
-
+userRefresh () { # Prompts user to refresh .bashrc
+	read -p "Would you like to refresh the .bashrc [y] or [n]: "  userInput
+	case $userInput in
+		y)	. ~/.bashrc;
+		echo "You have refreshed the .bashrc";
+		;;
+		n)	echo "You chose not to refresh the .bashrc.";
+			;;
+		*)
+		echo "An invalid entry was keyed: $userInput";
+		userRefresh;
+		;;
+	esac
+	echo "Users should still run \"source .bashrc \" after the script runs."
 }
 
 install () { # Clean Install of all preferences
@@ -143,7 +125,7 @@ install () { # Clean Install of all preferences
   initAlias
   initVim
   initMotd
-  initBash
+  refreshBash
 }
 
 usage (){ # Usage Guide
@@ -197,7 +179,7 @@ do
 		;;
 		m) modifyMotd
 		;;
-		r) userReBash
+		r) refreshBash
 		;;
 		i) install
 		;;
