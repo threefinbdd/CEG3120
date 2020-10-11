@@ -41,3 +41,4 @@ Git Hub itself is a repository management tool developers can use to work on a n
 5)  Issues can be labeled with specific flags to further detail and organize their importance.
 6)  Communication can be done on specific issue from the Author (person who created) to the development team via the comment section.
 7)  After a developer has implemented changes to their project, they can create a comment that reports these changes and close out the issue.
+8)  A user may choose to re-open the issue if the issue was falsely closed.  This should be done if the user is unhappy with the changes or if the unintended feature/bug persists after heavy testing.
