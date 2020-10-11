@@ -17,6 +17,17 @@ Git Hub itself is a repository management tool developers can use to work on a n
 
 * Git Pull - Performs a Fetch and Merge of changes from the desired repository into working repository
 
-* Git Push - Updates working files into chain of development to be sent to the final development phase to be committed.
+* Git Push - Updates working files into chain of development to be sent to the final development phase.
 
 * Git Commit - "Commit" working changes into the active branch or repository.
+
+## Beginner's Step-by-Step GitHub Usage/Development Stages
+1)  A developer should typically start their developing with `git clone` or `git init` in order to obtain a copy of the existing repository.
+2)  A developer should actively use `git status` to continously check how up-to-date their current working repository is based on the existing repository they cloned from.
+3)  If a developer's current working repository is out of date, `git status` will alert them to perform a `git pull`.  This will perform a `git fetch` and `git merge` with all changes from the up-to-date repository into the developer's current working repository.
+4)  After performing a `git merge` from the command itself or from `git pull`, the developer is required to go through their code to resolve merge conflicts where Github has detected anomalies.  Resolving git merge conflicts can help in having the code act as intended.
+    * a) Anomalies will exist as code where Github has detected differences exist between the two versions of the existing code fetched and the current working code merged into.
+5)  When all merge conflicts are reviewed and corrected, the developer will be able to perform a `git add` in order to ready the specific file/s for the next development phase.
+6)  A developer may also opt to perform `git commit -a` where the option `-a` will act as a `git add` of all files within the repository.
+7)  After adding the specific file to be readied, a `git commit` will need to be performed in order to save all changes within these specific files outside the local working repository.  `git commit` will require a message to be posted alongside the changes in order to communicate changes done with other developers.
+8)  Once all files have been added and those files have had their changes committed, a final `git push` will need to be performed to finally send the files and corresponding changes to the next step of development.  These changes should be sent through Unit Testing and Quality Assurance.  After testing, the changes can be sent to individual users for additional testing where bugs can be reported.  If all bugs have been resolved, the final product can be pushed into all users.
