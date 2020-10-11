@@ -6,14 +6,18 @@
 #
 
 init () { # Initial install of project repo
-  git clone https://github.com/BDDave-Student/dave-ceg1220-student.git
-
+  git clone https://github.com/BDDave-Student/dave-ceg3120-student.git
+  if [ -d $PWD/dave-ceg-3120-student/ ] ;then
+    echo "Student repo created in $PWD"
+  fi
 }
 
 initPath () { # Create PATH if not exist for script directory
 ##  Prioritize previous PATH before /scripts
-	if [ ! -d $HOME/scripts ]; then
+	if [ ! -d $HOME/scripts ] ;then
 		mkdir $HOME/scripts;
+  fi
+  if ! grep -q "~/scripts" ~/.profile ;then
 		echo "export PATH="$PATH:~/scripts"" >> ~/.profile
 		echo "\$PATH created"
 	fi
@@ -44,9 +48,12 @@ initAlias () { # Create custom alias if necessary
 }
 
 initVim ()  { # Initialize preferences while using VIM
-## Copies project's VIM preference to system
-  if [ -f vimrc ] ;then
-		sudo cp vimrc /etc/vim/vimrc
+
+#Safe checking current directory
+## Copies project repo's VIM preference to system
+  if [ -f ./vimrc ] ;then
+	  sudo cp vimrc /etc/vim/vimrc
+    echo "Configuration file has been updated."
   else
     echo "No config file was found for VIM.  Using system settings."
   fi
