@@ -14,8 +14,8 @@ init () { # Initial install of project repo
 
 initPath () { # Create PATH if not exist for script directory
 ##  Prioritize previous PATH before /scripts
-	if [ ! -d $HOME/scripts ] ;then
-		mkdir $HOME/scripts;
+  if [ ! -d $HOME/scripts ] ;then
+    mkdir $HOME/scripts;
   fi
   if ! grep -q "~/scripts" ~/.profile ;then
 		echo "export PATH="$PATH:~/scripts"" >> ~/.profile
@@ -32,7 +32,6 @@ initAlias () { # Create custom alias if necessary
 ##  If grep returns true, alias is made
 ##  Else create alias and store in .bashrc
 ##  Requires refresh on .bashrc file
-
 	if ! grep -q "aws-ssh" ~/.bashrc ;then
     echo alias aws-ssh="'ssh -i BDD-Student_CEG3120_key.pem ubuntu@107.20.210.5'" >> ~/.bashrc
 	fi
@@ -48,8 +47,6 @@ initAlias () { # Create custom alias if necessary
 }
 
 initVim ()  { # Initialize preferences while using VIM
-
-#Safe checking current directory
 ## Copies project repo's VIM preference to system
   if [ -f ./vimrc ] ;then
 	  sudo cp vimrc /etc/vim/vimrc
