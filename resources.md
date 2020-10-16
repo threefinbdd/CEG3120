@@ -13,3 +13,4 @@
 
 ## Additional Information
 - Load Balancer 101:  https://avinetworks.com/what-is-load-balancing/
+- GitLab on AWS:  https://docs.gitlab.com/ee/install/aws/
