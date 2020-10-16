@@ -32,6 +32,13 @@ Git Hub itself is a repository management tool developers can use to work on a n
 7)  After adding the specific file to be readied, a `git commit` will need to be performed in order to save all changes within these specific files outside the local working repository.  `git commit` will require a message to be posted alongside the changes in order to communicate changes done with other developers.
 8)  Once all files have been added and those files have had their changes committed, a final `git push` will need to be performed to finally send the files and corresponding changes to the next step of development.  These changes should be sent through Unit Testing and Quality Assurance.  After testing, the changes can be sent to individual users for additional testing where bugs can be reported.  If all bugs have been resolved, the final product can be pushed into all users.
 
+##  GitHub Code Variance/Difference Resolution
+1)  If one has decided to copy an existing repository into their own repository to perform work on, there will come a time when your working repository becomes out-of-date. 
+2)  An easy way to manage merging conflicting code differences is to use a Pull Request.
+3)  A Pull Request occurs when the developer has modified changes into a local working repository that does not exist in the existing repository, or vice versa.
+4)  The Pull Request is used as a ways to review and confirm what code should be accepted into the existing repository.
+5)  After resolving merge conflicts and making sure the code is acceptable, the reviewing developer can go ahead and merge the pull request.
+
 ## Unintended Features and Bugs
 1)  A user who has detected unintended functioning codes or bugs, can use Github to report Issues.
    * a)  The current base version of Github currently does not have a command line; however, the API exists if one wishes to implement it into their working environment.
