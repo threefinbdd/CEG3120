@@ -10,6 +10,7 @@
 ## GitHub Resources
 - https://training.github.com/downloads/github-git-cheat-sheet/
 - https://guides.github.com/activities/hello-world/
+- GitHub Markdown Syntax: https://guides.github.com/features/mastering-markdown/
 
 ## Additional Information
 - Load Balancer 101:  https://avinetworks.com/what-is-load-balancing/
