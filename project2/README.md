@@ -1,5 +1,8 @@
 # Project 2:  Working with VPC
 
+## Kanban Board
+https://github.com/BDDave-Student/dave-ceg3120-student/projects/1
+
 ## Today
 
 ## 26/10/2020
