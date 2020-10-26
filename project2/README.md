@@ -4,6 +4,7 @@
 
 ## 26/10/2020
 - Installed barebones git server to AWS machine
+- Configured INBOUND port 9418 for GitHub, 389 and 636 for OpenLAPD
 
 ## 17/10/2020
 - Attached IP to SLAPD instance
