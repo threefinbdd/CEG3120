@@ -2,6 +2,9 @@
 
 ## Today
 
+## 26/10/2020
+- Installed barebones git server to AWS machine
+
 ## 17/10/2020
 - Attached IP to SLAPD instance
 ![SLAPD-IP](images/project2-slapd-ip.PNG)
