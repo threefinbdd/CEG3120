@@ -15,3 +15,6 @@
 ## Additional Information
 - Load Balancer 101:  https://avinetworks.com/what-is-load-balancing/
 - GitLab on AWS:  https://docs.gitlab.com/ee/install/aws/
+
+## Service Set-up
+- Barebones Private Git Server: https://www.andrewhoog.com/post/howto-setup-a-private-git-server-on-ubuntu-18.04/
