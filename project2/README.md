@@ -6,6 +6,10 @@ https://github.com/BDDave-Student/dave-ceg3120-student/projects/1
 ## Today
 ## 28/10/2020
 - Created local key pair and added public key to git server
+- Tested git repository to local machine
+![git-server-README](images/project2-git-server-README)
+![git-local-clone](images/project2-git-local-clone)
+![git-local-pull](images/project2-git-local-pull)
 
 ## 26/10/2020
 - Installed barebones git server to AWS machine
