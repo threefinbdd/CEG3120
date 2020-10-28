@@ -9,7 +9,6 @@ https://github.com/BDDave-Student/dave-ceg3120-student/projects/1
 
 ## 26/10/2020
 - Installed barebones git server to AWS machine
-- Key Management on git server
 - Configured INBOUND port 9418 for GitHub, 389 and 636 for OpenLAPD
 
 ## 17/10/2020
