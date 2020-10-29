@@ -18,3 +18,4 @@
 
 ## Service Set-up
 - Barebones Private Git Server: https://www.andrewhoog.com/post/howto-setup-a-private-git-server-on-ubuntu-18.04/
+- Open-LDAP: https://www.techrepublic.com/article/how-to-install-openldap-on-ubuntu-18-04/
