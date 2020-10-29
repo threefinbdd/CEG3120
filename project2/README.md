@@ -4,6 +4,12 @@
 https://github.com/BDDave-Student/dave-ceg3120-student/projects/1
 
 ## Today
+
+## 29/10/2020
+- slapd ldap-utils: admin
+- Configuration of ldap_data.ldif needed.  
+![ldap-utils](images/project2-ldap-utils.PNG)
+
 ## 28/10/2020
 - Moved Git Server to new Instance+IP (52.2.81.181)
 - Reconfigured hostname to meaningful convention
