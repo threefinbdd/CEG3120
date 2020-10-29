@@ -5,6 +5,7 @@ https://github.com/BDDave-Student/dave-ceg3120-student/projects/1
 
 ## Today
 ## 28/10/2020
+- Moved Git Server to new IP (52.2.81.181)
 - Reconfigured hostname to meaningful convention
 - Created local key pair and added public key to git server
 - Tested git repository to local machine:  
