@@ -3,6 +3,10 @@
 ## Kanban Board
 https://github.com/BDDave-Student/dave-ceg3120-student/projects/1
 
+## Service Set-up
+- Barebones Private Git Server: https://www.andrewhoog.com/post/howto-setup-a-private-git-server-on-ubuntu-18.04/
+- Open-LDAP: https://www.techrepublic.com/article/how-to-install-openldap-on-ubuntu-18-04/
+
 ## Today
 
 ## 29/10/2020
