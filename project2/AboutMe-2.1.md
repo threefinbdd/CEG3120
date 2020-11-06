@@ -8,6 +8,12 @@ https://github.com/BDDave-Student/dave-ceg3120-student/projects/1
 ## Today
 
 ## 29/10/2020
+- dpkg config:
+  - DNS:  bdd-ldap-dn
+  - Org:  bdd-ldap-org
+  - Password:  [hint: it's generic]
+  - Backend:  MDB
+  - /var/lib/ldap
 - slapd ldap-utils: admin
 - Configuration of ldap_data.ldif needed.  
 ![ldap-utils](images/project2-ldap-utils.PNG)
