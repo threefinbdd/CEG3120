@@ -11,8 +11,10 @@ https://github.com/BDDave-Student/dave-ceg3120-student/projects/1
 
 ## 6/11/2020
 - Add information about LDAPserver domain name to define LDAPServer and set up redirects to point all HTTP requests to the HTTPS interface  
-![configure apache HTTPS](images/project2-apache-configHTTP.PNG)  
-![configure apache HTTPS](images/project2
+![configure apache HTTP](images/project2-apache-configHTTP.PNG)  
+![configure apache HTTPS](images/project2-apache-configHTTPS-DNS.PNG)
+![configure apache cert](images/project2-apache-configHTTPS-cert.PNG)
+
 - Configured apache.conf to reduce bot attacks on URL location:  /bdd-super (new)
 - Created SSL Certificate  
 ![SSL-cert](images/project2-sslcert.PNG)
