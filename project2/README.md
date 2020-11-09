@@ -30,6 +30,10 @@ Utilized systemctl to manage Error in config files at specified lines
   
 ## Today
 
+# 9/11/2020
+- Discovered server IP uses localhost (127.0.0.1) to log on as admin
+![phpldapadmin front page](project2-phpldapadmin-page.PNG)  
+
 # 6/11/2020
 - Configured phpldapadmin/config.php file
   - setValue for host is elastic IP (Line 293)
