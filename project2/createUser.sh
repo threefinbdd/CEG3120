@@ -9,17 +9,15 @@
 # outputs username and group and password
 read (){
         if !  grep -q "$1" /etc/passwd ;then
-                #getent group $2 | awk -F ":" '{ print $3 }'
-                #  Uses regex to automate user-added to group
                 adduser --quiet --disabled-password --shell /bin/bash --home /home/$1 --gid $( getent group $2 | awk -F ":" '{ print $3 }' )  --gecos "User" $1
-                userPass=abcdefault12345  #fails simplicity check
+                userPass=abcdefault12345
                 echo "$1:$userPass" | chpasswd
-                
+
                 echo "Welcome $1 to the server!  We hope you enjoy your stay.  Play nice with others." > /home/$1/TheGrid.txt
                 chown $1  /home/$1/TheGrid.txt
                 chmod 755 /home/$1/TheGrid.txt
-
-                echo "User $1 was created and put in group $2 with the password $userPass"
+                echo "User $1 was created and put in group $2"
+                date && echo "$1        $userPass" >> /etc/passwd_log
         else
                 echo "User $1 has already been created."
         fi
