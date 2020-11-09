@@ -44,7 +44,7 @@ Utilized systemctl to manage Error in config files at specified lines
   - Chmod/Chown of message file
 - Create test userFile for running script
 - Discovered server IP uses localhost (127.0.0.1) to log on as admin  
-![phpldapadmin front page](project2-phpldapadmin-page.PNG)  
+![phpldapadmin front page](images/project2-phpldapadmin-page.PNG)  
 
 # 6/11/2020
 - Configured phpldapadmin/config.php file
