@@ -7,6 +7,7 @@ https://github.com/BDDave-Student/dave-ceg3120-student/projects/1
 - http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page
 - Ubuntu 14.04: https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-openldap-and-phpldapadmin-on-an-ubuntu-14-04-server
 - Ubuntu 18.04: https://www.techrepublic.com/article/how-to-install-phpldapadmin-on-ubuntu-18-04/
+- Quick FAQ on config.php:  https://www.clearos.com/clearfoundation/social/community/how-to-connect-with-phpldapadmin-as-administrator
 
 ## Files changed to configure PHPLDAPADMIN
 Configure phpldapadmin apache related config file to IP or DNS given name
