@@ -43,7 +43,7 @@ Utilized systemctl to manage Error in config files at specified lines
   - Creates quirky "Welcome to the grid" message in each user's directory
   - Chmod/Chown of message file
 - Create test userFile for running script
-- Discovered server IP uses localhost (127.0.0.1) to log on as admin
+- Discovered server IP uses localhost (127.0.0.1) to log on as admin  
 ![phpldapadmin front page](project2-phpldapadmin-page.PNG)  
 
 # 6/11/2020
