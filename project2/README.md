@@ -31,6 +31,18 @@ Utilized systemctl to manage Error in config files at specified lines
 ## Today
 
 # 9/11/2020
+- Create bash script to create users given a file
+  - Script accepts file as param and reads each line
+  - Script must be executed as root user (sudo)
+  - If param not filled, echo help message
+  - Create devops group, if not existing
+  - Creates user from file param, if not existing
+  - Set GID to devops per user
+  - Creates default password for user
+  - Outputs User Created with GId and Password
+  - Creates quirky "Welcome to the grid" message in each user's directory
+  - Chmod/Chown of message file
+- Create test userFile for running script
 - Discovered server IP uses localhost (127.0.0.1) to log on as admin
 ![phpldapadmin front page](project2-phpldapadmin-page.PNG)  
 
