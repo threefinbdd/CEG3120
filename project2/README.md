@@ -42,6 +42,7 @@ Utilized systemctl to manage Error in config files at specified lines
   - Outputs User Created with GId and Password
   - Creates quirky "Welcome to the grid" message in each user's directory
   - Chmod/Chown of message file
+  - Stored password in /etc/ file
 - Create test userFile for running script
 - Discovered server IP uses localhost (127.0.0.1) to log on as admin  
 ![phpldapadmin front page](images/project2-phpldapadmin-page.PNG)  
