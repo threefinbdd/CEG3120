@@ -159,7 +159,7 @@ Resources:
           Value: !Ref 'AWS::StackId'
         - Key: Name
           Value: CEG3120 LDAP
-          NetworkInterfaces:
+      NetworkInterfaces:
         - GroupSet:
             - !Ref LinuxSecurityGroup
           AssociatePublicIpAddress: 'true'
@@ -197,7 +197,7 @@ Resources:
         - Key: Application
           Value: !Ref 'AWS::StackId'
         - Key: Name
-          Value: CEG 3400 Ubuntu 2
+          Value: CEG3120 Git
       NetworkInterfaces:
         - GroupSet:
             - !Ref LinuxSecurityGroup
