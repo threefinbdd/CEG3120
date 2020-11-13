@@ -179,8 +179,6 @@ Resources:
               git \
               wget \
               python3-dev \
-              slapd
-              ldap-utils && \
             reboot
   Ubuntu2Instance:
     Type: 'AWS::EC2::Instance'
