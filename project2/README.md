@@ -11,8 +11,7 @@ https://github.com/BDDave-Student/dave-ceg3120-student/projects/1
 
 ## Files changed to configure PHPLDAPADMIN and DNS
 Configure phpldapadmin apache related config file to IP or DNS given name
-- /etc/phpldapadmin/config.php
-- /etc/phpldapadmin/apache.conf  
+- /phpldapadmin/config/config.php
 
 Create a directory to store certificate created using OpenSSL
 - sudo mkdir /etc/apache2/ssl  
@@ -25,8 +24,7 @@ Utilized systemctl to manage Error in config files at specified lines
 - /etc/apache2/sites-enabled/000-default.conf - #Redirect /phpldapbdd https://www.bdd-ldap-dn.com/phpldapbdd
 - /etc/apache2/sites-enabled/default-ssl.conf
   - sudo a2ensite default-ssl.conf: Link sites-available/ to sites-enabled/ to modify config file
-- sudo service apache2 restart
-  - reload apache2 service to enable changes
+- sudo systemctl reload apache2.service to enable changes
   
 ## Today
 # 12/11/2020
