@@ -29,6 +29,11 @@ Utilized systemctl to manage Error in config files at specified lines
   - reload apache2 service to enable changes
   
 ## Today
+# 12/11/2020
+- Configured /etc/hosts to use pretty up DNS name when utilizing openLDAP from phpldapadmin
+
+# 11/11/2020
+- Configured template YAML for automation of instance creation using AWS  
 
 # 9/11/2020
 - Create bash script to create users given a file
