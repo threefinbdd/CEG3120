@@ -9,7 +9,7 @@ https://github.com/BDDave-Student/dave-ceg3120-student/projects/1
 - Ubuntu 18.04: https://www.techrepublic.com/article/how-to-install-phpldapadmin-on-ubuntu-18-04/
 - Quick FAQ on config.php:  https://www.clearos.com/clearfoundation/social/community/how-to-connect-with-phpldapadmin-as-administrator
 
-## Files changed to configure PHPLDAPADMIN
+## Files changed to configure PHPLDAPADMIN and DNS
 Configure phpldapadmin apache related config file to IP or DNS given name
 - /etc/phpldapadmin/config.php
 - /etc/phpldapadmin/apache.conf  
@@ -22,7 +22,7 @@ Enable Apache2 Module for SSL
 - sudo a2enmod ssl
 
 Utilized systemctl to manage Error in config files at specified lines
-- /etc/apache2/sites-enabled/000-default.conf
+- /etc/apache2/sites-enabled/000-default.conf - #Redirect /phpldapbdd https://www.bdd-ldap-dn.com/phpldapbdd
 - /etc/apache2/sites-enabled/default-ssl.conf
   - sudo a2ensite default-ssl.conf: Link sites-available/ to sites-enabled/ to modify config file
 - sudo service apache2 restart
@@ -31,6 +31,9 @@ Utilized systemctl to manage Error in config files at specified lines
 ## Today
 # 12/11/2020
 - Configured /etc/hosts to use pretty up DNS name when utilizing openLDAP from phpldapadmin
+- Tested template creation on new stack CEG3120-Project2  
+![Stack creation](images/project2-template-stack.PNG)
+![Instance creation](images/project2-template-instance.PNG)
 
 # 11/11/2020
 - Configured template YAML for automation of instance creation using AWS  
