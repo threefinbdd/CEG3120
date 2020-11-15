@@ -65,7 +65,7 @@ Resources:
         - Key: Application
           Value: !Ref 'AWS::StackId'
         - Key: Name
-          Value: CEG 3120 VPC
+          Value: CEG3120 Subnet
   InternetGateway:
     Type: 'AWS::EC2::InternetGateway'
     Properties:
@@ -116,12 +116,28 @@ Resources:
     Properties:
       VpcId: !Ref VPC
       GroupDescription: Enable SSH access via port 22 and LDAP via port 389/636
+      GroupName: CEG3120 Project 2 Security Group
       SecurityGroupIngress:
-        - IpProtocol: tcp
+        - IpProtocol: -1
+          FromPort: '-1'
+          ToPort: '-1'
+          CidrIp: 10.0.0.0/24
+        - IpProtocol: -1
+          FromPort: '-1'
+          ToPort: '-1'
+          CidrIp: 75.186.40.190/32
+        - IpProtocol: tcp  #HTTP
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: !Ref SSHLocation
+        - IpProtocol: tcp  #HTTPS
+          FromPort: '443'
+          ToPort: '443'
+          CidrIp: !Ref SSHLocation
+        - IpProtocol: tcp  #SSH
           FromPort: '22'
           ToPort: '22'
-          # May be wise to go back to top where SSHLocation "variable" was made
-          CidrIp: !Ref SSHLocation
+          CidrIp: !Ref SSHLocation  # May be wise to go back to top where SSHLocation "variable" was made
         - IpProtocol: tcp
           FromPort: '22'
           ToPort: '22'
@@ -134,10 +150,6 @@ Resources:
           FromPort: '636'
           ToPort: '636'
           CidrIp: !Ref SSHLocation
-        - IpProtocol: -1
-          FromPort: '-1'
-          ToPort: '-1'
-          CidrIp: 10.0.0.0/16
   # Tie an instance to an instance type available in the region
   # TODO: Modify / append the following two instances for our usage
   #   Adjust key / value pairs to reflect systems we are creating
