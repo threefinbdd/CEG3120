@@ -27,6 +27,10 @@ Utilized systemctl to manage Error in config files at specified lines
 - sudo systemctl reload apache2.service to enable changes
   
 ## Today
+
+# 15/11/2020
+- Configured YAML template a bit more to allow all inbound traffic from home IP  
+
 # 12/11/2020
 - Configured /etc/hosts to use pretty up DNS name when utilizing openLDAP from phpldapadmin
 - Tested template creation on new stack CEG3120-Project2  
