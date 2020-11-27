@@ -188,7 +188,6 @@ Resources:
               python \
               nmap \
               vim \
-              git \
               wget \
               python3-dev \
             reboot
