@@ -197,6 +197,7 @@ Resources:
               vim \
               wget \
               python3-dev \
+              haproxy && \
             reboot
   Ubuntu2Instance:
     Type: 'AWS::EC2::Instance'
@@ -236,9 +237,9 @@ Resources:
               git \
               wget \
               python3-dev \
-              git && \
+              apache 2 && \
             reboot
-UbuntuInstance:
+Ubuntu3Instance:
     Type: 'AWS::EC2::Instance'
     DependsOn: AttachGateway
     Properties:
@@ -255,7 +256,7 @@ UbuntuInstance:
         - Key: Application
           Value: !Ref 'AWS::StackId'
         - Key: Name
-          Value: CEG3120 LDAP
+          Value: CEG3120 HAProxy
       NetworkInterfaces:
         - GroupSet:
             - !Ref LinuxSecurityGroup
@@ -275,4 +276,5 @@ UbuntuInstance:
               vim \
               wget \
               python3-dev \
+              haproxy && \
             reboot
