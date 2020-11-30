@@ -115,7 +115,7 @@ Resources:
     DependsOn: AttachGateway
     Properties:
       Domain: vpc
-      InstanceId: !Ref Ubuntu2Instance
+      InstanceId: !Ref Ubuntu3Instance
   # TODO: Setup the security groups needed by our machines
   # SSH, LDAP, HTTP, HTTPS
   LinuxSecurityGroup:
@@ -239,7 +239,7 @@ Resources:
               python3-dev \
               apache2 && \
             reboot
-Ubuntu3Instance:
+  Ubuntu3Instance:
     Type: 'AWS::EC2::Instance'
     DependsOn: AttachGateway
     Properties:
@@ -264,7 +264,7 @@ Ubuntu3Instance:
           DeviceIndex: '0'
           DeleteOnTermination: 'true'
           SubnetId: !Ref Subnet
-          PrivateIpAddress: 10.0.0.20
+          PrivateIpAddress: 10.0.0.100
       UserData:
         Fn::Base64:
           !Sub |
