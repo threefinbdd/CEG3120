@@ -210,7 +210,7 @@ Resources:
               wget \
               python3-dev \
               apache2 && \
-            echo "LDAP-server" > /etc/hostname
+            echo "LDAP-server" > /etc/hostname && \ # Meaningful conventions
             reboot
   Ubuntu2Instance:
     Type: 'AWS::EC2::Instance'
@@ -251,7 +251,7 @@ Resources:
               wget \
               python3-dev \
               apache2 && \
-            echo "git-server" > /etc/hostname
+            echo "git-server" > /etc/hostname && \ # Meaningful conventions
             reboot
   Ubuntu3Instance:
     Type: 'AWS::EC2::Instance'
@@ -291,15 +291,15 @@ Resources:
               wget \
               python3-dev \
               haproxy && \
-            echo "proxy-server" > /etc/hostname
-            echo -e "10.0.0.20\t ldap-server" >> /etc/hosts
-            echo -e "10.0.0.25\t git-server" >> /etc/hosts
-            ssh-keygen -f .ssh/haproxy_key -t rsa -b 4096 -q -N "" # Quietly produce public/private keypairs
+            echo "proxy-server" > /etc/hostname && \ # Meaningful conventions
+            echo -e "10.0.0.20\t ldap-server" >> /etc/hosts && \
+            echo -e "10.0.0.25\t git-server" >> /etc/hosts && \
+            ssh-keygen -f /home/ubuntu/.ssh/haproxy_key -t rsa -b 4096 -q -N "" && \ # Quietly produce public/private keypairs
             # Configure .ssh/config file 
-            touch .ssh/config
-            echo "# Identify file for SSH" >> .ssh/config
-            echo "# Host [IP/DNS]"
-            echo -e "#\t Identity File [/path/to/private/key]"
-            echo "Host git-server"
-            echo -e "\tIdentityFile .ssh
+            touch /home/ubuntu/.ssh/config && \
+            echo "# Identify file for SSH" >> /home/ubuntu/.ssh/config && \
+            echo "# Host [IP/DNS]" >> /home/ubuntu/.ssh/config && \
+            echo -e "#\t Identity File [/path/to/private/key]" >> /home/ubuntu/.ssh/config && \
+            echo "Host git-server" >> /home/ubuntu/.ssh/config && \
+            echo -e "\tIdentityFile ~/.ssh/haproxy_key" >> /home/ubuntu/.ssh/config && \
             reboot
