@@ -273,7 +273,7 @@ Resources:
           Value: !Ref 'AWS::StackId'
         - Key: Name
           Value: CEG3120 HAProxy
-      NetworkInterfaces:
+      sNetworkInterfaces:
         - GroupSet:
             - !Ref LinuxSecurityGroup
           AssociatePublicIpAddress: 'true'
@@ -284,6 +284,8 @@ Resources:
       # Implement Meaningful conventions
       # Quietly produce public/private keypairs
       # Configure .ssh/config file 
+      #  TODO:  sftp put key into git-server and ldap-server's authorized_keys
+      # Configure directory/file permissions 
       UserData:
         Fn::Base64:
           !Sub |
@@ -306,4 +308,6 @@ Resources:
             echo -e "#\t Identity File [/path/to/private/key]" >> /home/ubuntu/.ssh/config && \
             echo "Host git-server" >> /home/ubuntu/.ssh/config && \
             echo -e "\tIdentityFile ~/.ssh/haproxy_key" >> /home/ubuntu/.ssh/config && \
+            chown -R ubuntu /home/ubuntu/.ssh && \
+            chgrp -R ubuntu /home/ubuntu/.ssh && \
             reboot
