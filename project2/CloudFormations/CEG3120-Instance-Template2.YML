@@ -115,7 +115,7 @@ Resources:
     DependsOn: AttachGateway
     Properties:
       Domain: vpc
-      InstanceId: !Ref Ubuntu3Instance
+      InstanceId: !Ref Ubuntu2Instance
   # TODO: Setup the security groups needed by our machines
   # SSH, LDAP, HTTP, HTTPS
   LinuxSecurityGroup:
@@ -211,7 +211,7 @@ Resources:
               python3-dev \
               apache2 && \
             echo "LDAP-server" > /etc/hostname && \ # Meaningful conventions
-            reboot
+            sudo reboot
   Ubuntu2Instance:
     Type: 'AWS::EC2::Instance'
     DependsOn: AttachGateway
@@ -286,20 +286,20 @@ Resources:
             apt-get update && \
             apt-get install -y \
               python \
-              nmap \
+              nmap \ca
               vim \
               wget \
               python3-dev \
               haproxy && \
-            echo "proxy-server" > /etc/hostname && \ # Meaningful conventions
-            echo -e "10.0.0.20\t ldap-server" >> /etc/hosts && \
-            echo -e "10.0.0.25\t git-server" >> /etc/hosts && \
-            ssh-keygen -f /home/ubuntu/.ssh/haproxy_key -t rsa -b 4096 -q -N "" && \ # Quietly produce public/private keypairs
+            echo "proxy-server" > /etc/hostname # Meaningful conventions
+            echo -e "10.0.0.20\t ldap-server" >> /etc/hosts 
+            echo -e "10.0.0.25\t git-server" >> /etc/hosts 
+            ssh-keygen -f /home/ubuntu/.ssh/haproxy_key -t rsa -b 4096 -q -N ""  # Quietly produce public/private keypairs
             # Configure .ssh/config file 
-            touch /home/ubuntu/.ssh/config && \
-            echo "# Identify file for SSH" >> /home/ubuntu/.ssh/config && \
-            echo "# Host [IP/DNS]" >> /home/ubuntu/.ssh/config && \
-            echo -e "#\t Identity File [/path/to/private/key]" >> /home/ubuntu/.ssh/config && \
-            echo "Host git-server" >> /home/ubuntu/.ssh/config && \
-            echo -e "\tIdentityFile ~/.ssh/haproxy_key" >> /home/ubuntu/.ssh/config && \
+            touch /home/ubuntu/.ssh/config 
+            echo "# Identify file for SSH" >> /home/ubuntu/.ssh/config 
+            echo "# Host [IP/DNS]" >> /home/ubuntu/.ssh/config 
+            echo -e "#\t Identity File [/path/to/private/key]" >> /home/ubuntu/.ssh/config 
+            echo "Host git-server" >> /home/ubuntu/.ssh/config 
+            echo -e "\tIdentityFile ~/.ssh/haproxy_key" >> /home/ubuntu/.ssh/config
             reboot
