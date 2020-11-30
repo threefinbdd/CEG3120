@@ -291,7 +291,7 @@ Resources:
             apt-get update && \
             apt-get install -y \
               python \
-              nmap \ca
+              nmap \
               vim \
               wget \
               python3-dev \
