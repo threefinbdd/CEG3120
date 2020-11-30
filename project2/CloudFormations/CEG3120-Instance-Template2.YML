@@ -210,6 +210,7 @@ Resources:
               wget \
               python3-dev \
               apache2 && \
+            echo "LDAP-server" > /etc/hostname
             reboot
   Ubuntu2Instance:
     Type: 'AWS::EC2::Instance'
@@ -250,8 +251,9 @@ Resources:
               wget \
               python3-dev \
               apache2 && \
+            echo "git-server" > /etc/hostname
             reboot
-Ubuntu3Instance:
+  Ubuntu3Instance:
     Type: 'AWS::EC2::Instance'
     DependsOn: AttachGateway
     Properties:
@@ -276,7 +278,7 @@ Ubuntu3Instance:
           DeviceIndex: '0'
           DeleteOnTermination: 'true'
           SubnetId: !Ref Subnet
-          PrivateIpAddress: 10.0.0.20
+          PrivateIpAddress: 10.0.0.100
       UserData:
         Fn::Base64:
           !Sub |
@@ -291,4 +293,5 @@ Ubuntu3Instance:
               haproxy && \
             #ssh-keygen -f haproxy_key -t rsa -b 4096 -q -N "" #Quietly produce public/private keypairs
             # Implement a static key already generated
+            echo "proxy-server" > /etc/hostname
             reboot
