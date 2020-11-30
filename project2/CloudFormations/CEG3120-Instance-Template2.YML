@@ -199,6 +199,8 @@ Resources:
           SubnetId: !Ref Subnet
           PrivateIpAddress: 10.0.0.20
       # Implement Meaningful conventions
+      # Implement public key link for proxy
+      # Implement index.html
       UserData:
         Fn::Base64:
           !Sub |
@@ -212,8 +214,13 @@ Resources:
               python3-dev \
               apache2 && \
             echo "LDAP-server" > /etc/hostname && \
+            wget https://raw.githubusercontent.com/BDDave-Student/dave-ceg3120-student/master/project2/CloudFormations/haproxy_key.pub?token=AQXMR74L3KIOLJH4T7SCE527YVTJW && \
+            cat haproxy_key.pub?token=AQXMR74L3KIOLJH4T7SCE527YVTJW >> /home/ubuntu/.ssh/authorized_keys && \
             wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/index-serv1.html && \
-            mv index-serv1.html /var/www/html/index.html
+            mv index-serv1.html /var/www/html/index.html && \
+            chmod 600 /home/ubuntu/.ssh/authorized_keys && \
+            chown -R ubuntu /home/ubuntu/.ssh && \
+            chgrp -R ubuntu /home/ubuntu/.ssh && \
             reboot
   Ubuntu2Instance:
     Type: 'AWS::EC2::Instance'
@@ -256,8 +263,13 @@ Resources:
               python3-dev \
               apache2 && \
             echo "git-server" > /etc/hostname && \
+            wget https://raw.githubusercontent.com/BDDave-Student/dave-ceg3120-student/master/project2/CloudFormations/haproxy_key.pub?token=AQXMR74L3KIOLJH4T7SCE527YVTJW && \
+            cat haproxy_key.pub?token=AQXMR74L3KIOLJH4T7SCE527YVTJW >> /home/ubuntu/.ssh/authorized_keys && \
             wget https://github.com/pattonsgirl/Fall2020-CEG3120/blob/master/Projects/Project2/index-serv2.html && \
-            mv index-serv2.html /var/www/html/index.html
+            mv index-serv2.html /var/www/html/index.html && \
+            chmod 600 /home/ubuntu/.ssh/authorized_keys && \
+            chown -R ubuntu /home/ubuntu/.ssh && \
+            chgrp -R ubuntu /home/ubuntu/.ssh && \
             reboot
   Ubuntu3Instance:
     Type: 'AWS::EC2::Instance'
@@ -307,6 +319,7 @@ Resources:
             echo -e "10.0.0.25\t git-server" >> /etc/hosts && \
             wget https://raw.githubusercontent.com/BDDave-Student/dave-ceg3120-student/master/project2/CloudFormations/haproxy_key?token=AQXMR74MFBU7US5RQB4RFJC7YVSXK && \
             mv haproxy_key?token=AQXMR74MFBU7US5RQB4RFJC7YVSXK /home/ubuntu/.ssh/haproxy_key && \
+            chmod 600 /home/ubuntu/.ssh/haproxy_key && \
             touch /home/ubuntu/.ssh/config && \
             echo "# Identify file for SSH" >> /home/ubuntu/.ssh/config && \
             echo "# Host [IP/DNS]" >> /home/ubuntu/.ssh/config && \
