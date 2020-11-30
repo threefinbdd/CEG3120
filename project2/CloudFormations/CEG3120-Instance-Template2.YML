@@ -125,14 +125,30 @@ Resources:
       GroupDescription: Enable SSH access via port 22 and LDAP via port 389/636
       GroupName: CEG3120 Project 2 Security Group
       SecurityGroupIngress:
-        - IpProtocol: -1
-          FromPort: '-1'
-          ToPort: '-1'
-          CidrIp: 10.0.0.0/24
+        # Home CIDR
         - IpProtocol: -1
           FromPort: '-1'
           ToPort: '-1'
           CidrIp: 75.186.40.190/32
+        # WSU CIDR
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 130.108.0.0/16
+        #  Private Network CIDR
+        - IpProtocol: tcp #SSH
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 10.0.0.0/24
+        - IpProtocol: tcp # HTTP
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 10.0.0.0/24
+        - IpProtocol: -1
+          FromPort: '-1'
+          ToPort: '-1'
+          CidrIp: 10.0.0.0/24 # Above is Redundant but safety net
+         # May be wise to go back to top where SSHLocation "variable" was made
         - IpProtocol: tcp  #HTTP
           FromPort: '80'
           ToPort: '80'
@@ -144,16 +160,12 @@ Resources:
         - IpProtocol: tcp  #SSH
           FromPort: '22'
           ToPort: '22'
-          CidrIp: !Ref SSHLocation  # May be wise to go back to top where SSHLocation "variable" was made
-        - IpProtocol: tcp
-          FromPort: '22'
-          ToPort: '22'
-          CidrIp: 130.108.0.0/16  # WSU CIDR
-        - IpProtocol: tcp
+          CidrIp: !Ref SSHLocation 
+        - IpProtocol: tcp # LDAP/OpenLDAP
           FromPort: '389'
           ToPort: '389'
-          CidrIp: !Ref SSHLocation
-        - IpProtocol: tcp
+          CidrIp: !Ref SSHLocation 
+        - IpProtocol: tcp # LDAP/OpenLDAP
           FromPort: '636'
           ToPort: '636'
           CidrIp: !Ref SSHLocation
@@ -198,6 +210,7 @@ Resources:
               wget \
               python3-dev \
               apache2 && \
+            echo "LDAP-server" > /etc/hostname
             reboot
   Ubuntu2Instance:
     Type: 'AWS::EC2::Instance'
@@ -238,6 +251,7 @@ Resources:
               wget \
               python3-dev \
               apache2 && \
+            echo "git-server" > /etc/hostname
             reboot
   Ubuntu3Instance:
     Type: 'AWS::EC2::Instance'
@@ -277,4 +291,15 @@ Resources:
               wget \
               python3-dev \
               haproxy && \
+            echo "proxy-server" > /etc/hostname
+            echo -e "10.0.0.20\t ldap-server" >> /etc/hosts
+            echo -e "10.0.0.25\t git-server" >> /etc/hosts
+            ssh-keygen -f .ssh/haproxy_key -t rsa -b 4096 -q -N "" # Quietly produce public/private keypairs
+            # Configure .ssh/config file 
+            touch .ssh/config
+            echo "# Identify file for SSH" >> .ssh/config
+            echo "# Host [IP/DNS]"
+            echo -e "#\t Identity File [/path/to/private/key]"
+            echo "Host git-server"
+            echo -e "\tIdentityFile .ssh
             reboot
