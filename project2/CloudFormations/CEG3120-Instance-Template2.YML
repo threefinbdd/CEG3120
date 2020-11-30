@@ -291,7 +291,15 @@ Resources:
               wget \
               python3-dev \
               haproxy && \
-            #ssh-keygen -f haproxy_key -t rsa -b 4096 -q -N "" #Quietly produce public/private keypairs
-            # Implement a static key already generated
             echo "proxy-server" > /etc/hostname
+            echo -e "10.0.0.20\t ldap-server" >> /etc/hosts
+            echo -e "10.0.0.25\t git-server" >> /etc/hosts
+            ssh-keygen -f .ssh/haproxy_key -t rsa -b 4096 -q -N "" # Quietly produce public/private keypairs
+            # Configure .ssh/config file 
+            touch .ssh/config
+            echo "# Identify file for SSH" >> .ssh/config
+            echo "# Host [IP/DNS]"
+            echo -e "#\t Identity File [/path/to/private/key]"
+            echo "Host git-server"
+            echo -e "\tIdentityFile .ssh
             reboot
