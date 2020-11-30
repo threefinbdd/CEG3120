@@ -197,7 +197,7 @@ Resources:
               vim \
               wget \
               python3-dev \
-              haproxy && \
+              apache2 && \
             reboot
   Ubuntu2Instance:
     Type: 'AWS::EC2::Instance'
@@ -237,7 +237,7 @@ Resources:
               git \
               wget \
               python3-dev \
-              apache 2 && \
+              apache2 && \
             reboot
 Ubuntu3Instance:
     Type: 'AWS::EC2::Instance'
