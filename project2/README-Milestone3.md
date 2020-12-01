@@ -3,6 +3,8 @@
 ## 30/11/2020
 - TODO: Quietly produce public/private keypairs
 - TODO:  sftp put key into git-server and ldap-server's authorized_keys
+- 
+- Implemented index.html for all 3 servers
 - Cleaned up YAML comments causing template to break
 - Tested SFTP to transfer from Proxy to Git server
 ![trial image](images/project2-sftp-trial.PNG)
