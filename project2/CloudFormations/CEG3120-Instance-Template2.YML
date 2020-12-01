@@ -200,6 +200,11 @@ Resources:
           PrivateIpAddress: 10.0.0.20
       # Implement Meaningful conventions
       # Implement public key link for proxy
+        # wget https://raw.githubusercontent.com/BDDave-Student/dave-ceg3120-student/master/project2/CloudFormations/haproxy_key.pub && \      # mv index-serv2.html /var/www/html/index.html && \
+        # cat haproxy_key.pub >> /home/ubuntu/.ssh/authorized_keys
+        # rm haproxy_key.pub
+        # or 
+        # echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDcPaIchJ5VuMX+/BT1uTuA9aiSME/z7Ev+YiV6aF5Nr9lZi0q2wOy1d424QmTITpEcOR3rmMQGUEMd4zv8mPvcee1bMV7g7xRvVtSs35KuedbIfchmdyQY8CARAJNHxMujzP0Sge7BJg/k2zDHTRFrCboLRiEdyb9xX6TseAMecH6x5/ixfoRyn7w+zqcbEO/BA0BmZqMdDet7Y/2tHJSmom8PupU5R/3Yu2+5RVL/zo6pzFKuxbgkKgkSDBLz5jvNGuutDgBLkDhc73VcwGWitloCm4KnRkXGHJZHmZxhhJakUhurLL6Vl1dyYUU6ITl1rK8TwlZW/FVPIppmvrDuwFh57USisg3sJQyXX/Ijr6JBz92O8Npkfj35LVMgCXKJksTAODqKQMKhUn4EFnAfhMu/gtjDyLWrjDJegrmV14Iazej2zWgK9s6MZS7WTX7x0F2xI69TzvoydU9LXZwhspH1z7dQMK3BK1YGjMJuxoXZna6QA9tyF66Y78CMKe/LciwickEzQZsDffjrpK4CKSzwfft4W7quTvkgaYja/cVjj3c0uEd++fJTYO4qHZylF6AiHnGAtqdZD2X3Fn1RhlVgelZNNFAhRfdQUEoS3iJJugzpwPsB6AhKlYFy7J0PzcJrhPVFWqsA110wuMC9usxfKW3wYmFEk2CBX9rAUw==" >> /home/ubuntu/.ssh/authorized_keys && \
       # Implement index.html
       UserData:
         Fn::Base64:
@@ -213,9 +218,8 @@ Resources:
               wget \
               python3-dev \
               apache2 && \
-            echo "LDAP-server" > /etc/hostname && \
-            wget https://raw.githubusercontent.com/BDDave-Student/dave-ceg3120-student/master/project2/CloudFormations/haproxy_key.pub?token=AQXMR74L3KIOLJH4T7SCE527YVTJW && \
-            cat haproxy_key.pub?token=AQXMR74L3KIOLJH4T7SCE527YVTJW >> /home/ubuntu/.ssh/authorized_keys && \
+            echo "webserv1" > /etc/hostname && \
+            echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDcPaIchJ5VuMX+/BT1uTuA9aiSME/z7Ev+YiV6aF5Nr9lZi0q2wOy1d424QmTITpEcOR3rmMQGUEMd4zv8mPvcee1bMV7g7xRvVtSs35KuedbIfchmdyQY8CARAJNHxMujzP0Sge7BJg/k2zDHTRFrCboLRiEdyb9xX6TseAMecH6x5/ixfoRyn7w+zqcbEO/BA0BmZqMdDet7Y/2tHJSmom8PupU5R/3Yu2+5RVL/zo6pzFKuxbgkKgkSDBLz5jvNGuutDgBLkDhc73VcwGWitloCm4KnRkXGHJZHmZxhhJakUhurLL6Vl1dyYUU6ITl1rK8TwlZW/FVPIppmvrDuwFh57USisg3sJQyXX/Ijr6JBz92O8Npkfj35LVMgCXKJksTAODqKQMKhUn4EFnAfhMu/gtjDyLWrjDJegrmV14Iazej2zWgK9s6MZS7WTX7x0F2xI69TzvoydU9LXZwhspH1z7dQMK3BK1YGjMJuxoXZna6QA9tyF66Y78CMKe/LciwickEzQZsDffjrpK4CKSzwfft4W7quTvkgaYja/cVjj3c0uEd++fJTYO4qHZylF6AiHnGAtqdZD2X3Fn1RhlVgelZNNFAhRfdQUEoS3iJJugzpwPsB6AhKlYFy7J0PzcJrhPVFWqsA110wuMC9usxfKW3wYmFEk2CBX9rAUw==" >> /home/ubuntu/.ssh/authorized_keys && \
             wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/index-serv1.html && \
             mv index-serv1.html /var/www/html/index.html && \
             chmod 600 /home/ubuntu/.ssh/authorized_keys && \
@@ -249,6 +253,8 @@ Resources:
           SubnetId: !Ref Subnet
           PrivateIpAddress: 10.0.0.25
       # Implement Meaningful conventions
+      # Implement public key link for proxy
+      # Implement index.html
       UserData:
         Fn::Base64:
           !Sub |
@@ -262,10 +268,9 @@ Resources:
               wget \
               python3-dev \
               apache2 && \
-            echo "git-server" > /etc/hostname && \
-            wget https://raw.githubusercontent.com/BDDave-Student/dave-ceg3120-student/master/project2/CloudFormations/haproxy_key.pub?token=AQXMR74L3KIOLJH4T7SCE527YVTJW && \
-            cat haproxy_key.pub?token=AQXMR74L3KIOLJH4T7SCE527YVTJW >> /home/ubuntu/.ssh/authorized_keys && \
-            wget https://github.com/pattonsgirl/Fall2020-CEG3120/blob/master/Projects/Project2/index-serv2.html && \
+            echo "webserv2" > /etc/hostname && \
+            echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDcPaIchJ5VuMX+/BT1uTuA9aiSME/z7Ev+YiV6aF5Nr9lZi0q2wOy1d424QmTITpEcOR3rmMQGUEMd4zv8mPvcee1bMV7g7xRvVtSs35KuedbIfchmdyQY8CARAJNHxMujzP0Sge7BJg/k2zDHTRFrCboLRiEdyb9xX6TseAMecH6x5/ixfoRyn7w+zqcbEO/BA0BmZqMdDet7Y/2tHJSmom8PupU5R/3Yu2+5RVL/zo6pzFKuxbgkKgkSDBLz5jvNGuutDgBLkDhc73VcwGWitloCm4KnRkXGHJZHmZxhhJakUhurLL6Vl1dyYUU6ITl1rK8TwlZW/FVPIppmvrDuwFh57USisg3sJQyXX/Ijr6JBz92O8Npkfj35LVMgCXKJksTAODqKQMKhUn4EFnAfhMu/gtjDyLWrjDJegrmV14Iazej2zWgK9s6MZS7WTX7x0F2xI69TzvoydU9LXZwhspH1z7dQMK3BK1YGjMJuxoXZna6QA9tyF66Y78CMKe/LciwickEzQZsDffjrpK4CKSzwfft4W7quTvkgaYja/cVjj3c0uEd++fJTYO4qHZylF6AiHnGAtqdZD2X3Fn1RhlVgelZNNFAhRfdQUEoS3iJJugzpwPsB6AhKlYFy7J0PzcJrhPVFWqsA110wuMC9usxfKW3wYmFEk2CBX9rAUw==" >> /home/ubuntu/.ssh/authorized_keys && \
+            wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/index-serv2.html && \
             mv index-serv2.html /var/www/html/index.html && \
             chmod 600 /home/ubuntu/.ssh/authorized_keys && \
             chown -R ubuntu /home/ubuntu/.ssh && \
@@ -289,7 +294,7 @@ Resources:
           Value: !Ref 'AWS::StackId'
         - Key: Name
           Value: CEG3120 HAProxy
-      sNetworkInterfaces:
+      NetworkInterfaces:
         - GroupSet:
             - !Ref LinuxSecurityGroup
           AssociatePublicIpAddress: 'true'
@@ -298,10 +303,11 @@ Resources:
           SubnetId: !Ref Subnet
           PrivateIpAddress: 10.0.0.100
       # Implement Meaningful conventions
-      # Quietly produce public/private keypairs
-      # Configure .ssh/config file 
+      #  TODO: Quietly produce public/private keypairs
       #  TODO:  sftp put key into git-server and ldap-server's authorized_keys
+      # Configure .ssh/config file 
       # Configure directory/file permissions 
+      # Configure HAProxy Load Balancer
       UserData:
         Fn::Base64:
           !Sub |
@@ -313,21 +319,77 @@ Resources:
               vim \
               wget \
               python3-dev \
-              haproxy && \
+              haproxy \
+              apache2 && \
             echo "proxy-server" > /etc/hostname && \
             echo -e "10.0.0.20\t ldap-server" >> /etc/hosts && \
             echo -e "10.0.0.25\t git-server" >> /etc/hosts && \
-            wget https://raw.githubusercontent.com/BDDave-Student/dave-ceg3120-student/master/project2/CloudFormations/haproxy_key?token=AQXMR74MFBU7US5RQB4RFJC7YVSXK && \
-            mv haproxy_key?token=AQXMR74MFBU7US5RQB4RFJC7YVSXK /home/ubuntu/.ssh/haproxy_key && \
+            echo "-----BEGIN RSA PRIVATE KEY-----" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "MIIJKgIBAAKCAgEA3D2iHISeVbjF/vwU9bk7gPWokjBP8+xL/mIlemheTa/ZWYtK" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "tsDstXeNuEJkyE6RHDkd65jEBlBDHeM7/Jj73HntWzFe4O8Ub1bUrN+SrnnWyH3I" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "ZnckGPAgEQCTR8TLo8z9EoHuwSYP5Nswx00Rawm6C0YhHcm/cV+k7HgDHnB+sef4" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "sX6Ecp+8Ps6nGxDvwQNAZmajHQ3re2P9rRyUpqJvD7qVOUf92LtvuUVS/86OqcxS" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "rsW4JCoJEgwS8+Y7zRrrrQ4AS5A4XO91XMBlorZaApuCp0ZFxhyWR5mcYYSWpFIb" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "qyy+lZdXcmFFOiE5dayvE8JWVvxVTyKaZr6w7sBYee1EorIN7CUMl1/yI6+iQc/d" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "jvDaZH49+S1TIAlyiZLEwDg6ikDCoVJ+BBZwH4TLv4LYw8i1q4wyXoK5ldeCGs3o" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "9s1oCvbOjGUu1k1+8dBdsSOvU876MnVPS12cIbKR9c+3UDCtwStWBozCbsaF2Z2u" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "kAPbcheumO/AjCnvy3IsInJBM0GbA33466SuAiks8H37eFu6rk75IGmI2v3FY493" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "NLhHfvnyU2DuKh2cpRegIh5xgLanWQ9l9xZ9UYZVYHpWTTRQIUX3UFBKEt4iSboM" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "6cD7AegISpWBcuydD83Ca4T1RVqrANddMLjAvbrMXylt8GJhRJNggV/awFMCAwEA" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "AQKCAgBJQN64qYuYa3q/kszN5ixaelr1NMiDEyc7lx1sF2a2ZDTgyamyG30f5oHm" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "tX6b+TXes0i2YfthNjT8reX34FJ1RMCjwkoSerLLTZAzZ7F8At5jlSKgoiQJf2TL" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "Auv5xQUOmFHcZAcriyNiNV2GDKYsefG9ajf9lmrspKlQVaKD71rUhZl8P96B2Ytd" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "QJLoN7vm8NPsu1qpgUW/psRrXcQ7oG9cRez4Pm+6NK22a85tcyCUbXda1jynGqwl" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "qoprQTrGv5t/1dZXS8LTdnoMvZmQgyJxF5RfWso+WKfLbNZMwTLxuLWnO5ywWMQn" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "MR87dG2OLD+XTN421HrzdUjxv59NS7I4yJ1YN+wL0IS3/mbvrpnrEIVFTotjhjMZ" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "H/KfdghFg9/Ten+f7Rlo7YzZ6B7/+PcPpCL1AFl3+wnOWZmGzxbr+I9o3gHQeek0" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "3ZUuUdvaxv6xXG8Rl3CxPfXk3v2Mbzfq4IE4QKRTTBaERKGIt/Y0nevxw7m5UkZU" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "66w6fDJ+LHc4L6h6bPq3NxECrve9qZrCgmnXDPf44zlx0my5hZDn9Wn7kwnj+znB" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "RNuUVfHQ2nF0EVQh3tEoBVYeLOH94AQ5BaeasjQTEq6qgaN5Rq8I/dtdfxErFZmU" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "e2BYiGKHkd3nQkOBpctiVI8f0TPhZ8klcD7uLgy8ieUBojPLYQKCAQEA/c1iG5Ab" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "Oci5WvKCkjciUAANH/OOhpxAE7ZGZXAh6P8rKnGaVt98lNHOfyfLWa9ABhkW0jrv" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "BGink4FDWWVKfoNveT0JI2QEEDphAV5Xkh1pil9ji2q0qiXE1C9ggR3MrU9pyUcX" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "ArsO1J3leNVc4mJcbGWxXP8BGV9sEFx58fuatrOsmBxp3e6eEb/rbvuLYWMOEnsP" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "DJjEEbzcAyqy8aqflAmSlaFOCoBxF1BmbTFsIWU3Zfext5E7noVXLL9QuvFghhZq" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "C3BQU9k1sZrM1D7ZQdJnuD2Go14mbBYUtqAsylazTH/JbT5H+vN5gwA7XyOIKD1S" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "IPJJI26g29qa6QKCAQEA3iXaOQd0+DVezNH9R1Gor9PjP2yZX6Qszms9BW3i8WgT" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "gFZxpmkMKO4lQi5eQqZsiwpniuMbx8WH1E+Q5GpwZ7Oih1fkxNTbSTXUu2DtI4DD" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "sGbqjfOcIaHNgFhTp/fwMwjhwLlDbAtoOl72jOTDPAV2zVvCEf9nPugMFTB3HqU3" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "0IX1YkBKZNuhCfHPeLpfRrcFnYEZTFNKDsuCt1NsQRDb6b3/v4LOP1sAHFIYIrAm" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "zWFWf+nVid4Dzy6ElZTRrTr6FVxf6KXg+r2rkCtIFIxrLJ1+4bHUWcXbSiEHP48C" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "M4f8hdgc5s/1iDypFvBTDmxXxnDspfoAyQSmWBuD2wKCAQEA2/14OnfwgWew8loe" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "P2q2vS0uMzHDqn4pNGzcG/TUD8eNvN53bzGMJNqu6JyvsG8tSZvZoiQfJW0pQ7vZ" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "itU3eu2mZCo5j4mT1BUmHC+QLEB+SMhh2miFbK4MK/dc6M3Rqa+Z/DM4iM9nDXhH" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "fTNDrZ6gifyjff4zD7EcVBo0QUFbW13mDnsicJHyRWRbR/mVWLapbe9onfyUhuNy" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "uPP742mHpKOfgT8uDABFBnZUMfWSymeXWzUVwA2M5dyiMVErQr8ScWdgR8X0epld" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "5zJMtPQ9EMa1zIbX+ycSmsGQ9rNj34bDJ13kVGKVtbnw61H6JH8B+A8e7xvTtXig" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "ybB0cQKCAQEAgnUqRWl6qLT2+kOrgTGUZcWCY+HL5F3Orl5N1J1mtCxRn4Gkdnyk" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "VnkcSlReqLeBcNnoWqjqzJPVI7qiNXHIly3oGaFlSK5UJRdG2c+fE8Vvpm2Z+0j/" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "/MQ/ocq9Phwd5Gqn4P0regzs5bKVCcLiYKI41Xq4asdZg5jUV7FBky6lq4CvzUZC" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "Kh7M4MEv/Q8+GpIq6wdAqxESocOj/TMxlLho3UjmIzqXEp/HXdpcMCrQbrZmDPJu" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "o+tMw2PnGsztodTLvrWj4UVg7P9r/FteliqsWeQX+kTrltjZ4hupXQsH2OlYQ+XZ" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "ezbPU3WEO2Ng80xu86unXgWGZoajhYSLFwKCAQEAvbHbhmc2foTEbBcPNf+KQjDp" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "LGRWx3QO/zu2VARfbRD4J9NlzmYFJZKvb71u9GwfijZaJgG1HRGa+15+NKdMvuc7" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "iz56XBj3iSIkdT+lOEvsCpK3KH5bvKdp7qi1gD3i7lFm9+m7b6SguwzAUel+UZiY" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "ZXELzUcFpRVSfITl/b3TlxWo9dvnqqmF7o0bgiH6KOGjvphpghKl5+z4qDnJE4bP" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "88QONhDcKOXFznR/tZ1i1o+8nWTqy5eiBvfqRukJLYfDoMvhKHe+W9gJXJAU2LVD" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "0xGvgaz1q7QOTGb+BGmm8KozNCFStlg8SZPQCSKI7zG+6VxkJ5X7q8ESHzuZmg==" >>  /home/ubuntu/.ssh/haproxy_key && \
+            echo "-----END RSA PRIVATE KEY-----" >>  /home/ubuntu/.ssh/haproxy_key && \
             chmod 600 /home/ubuntu/.ssh/haproxy_key && \
             touch /home/ubuntu/.ssh/config && \
             echo "# Identify file for SSH" >> /home/ubuntu/.ssh/config && \
             echo "# Host [IP/DNS]" >> /home/ubuntu/.ssh/config && \
             echo -e "#\t Identity File [/path/to/private/key]" >> /home/ubuntu/.ssh/config && \
-            echo "Host git-server" >> /home/ubuntu/.ssh/config && \
+            echo "Host webserv1" >> /home/ubuntu/.ssh/config && \
             echo -e "\tIdentityFile ~/.ssh/haproxy_key" >> /home/ubuntu/.ssh/config && \
-            echo "Host ldap-server" >> /home/ubuntu/.ssh/config && \
+            echo "Host webserv2" >> /home/ubuntu/.ssh/config && \
             echo -e "\tIdentityFile ~/.ssh/haproxy_key" >> /home/ubuntu/.ssh/config && \
+            wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/index-main.html && \
+            mv index.html /var/www/html/index.html && \
+            mv /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.original && \
+            wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/haproxy.cfg && \
+            mv haproxy.cfg /etc/haproxy/haproxy.cfg && \
             chown -R ubuntu /home/ubuntu/.ssh && \
             chgrp -R ubuntu /home/ubuntu/.ssh && \
+            service haproxy start && \
             reboot
