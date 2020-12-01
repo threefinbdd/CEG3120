@@ -384,8 +384,6 @@ Resources:
             echo -e "\tIdentityFile ~/.ssh/haproxy_key" >> /home/ubuntu/.ssh/config && \
             echo "Host webserv2" >> /home/ubuntu/.ssh/config && \
             echo -e "\tIdentityFile ~/.ssh/haproxy_key" >> /home/ubuntu/.ssh/config && \
-            wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/index-main.html && \
-            mv index.html /var/www/html/index.html && \
             mv /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.original && \
             wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/haproxy.cfg && \
             mv haproxy.cfg /etc/haproxy/haproxy.cfg && \
