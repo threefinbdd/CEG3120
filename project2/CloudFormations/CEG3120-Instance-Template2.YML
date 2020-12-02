@@ -206,7 +206,8 @@ Resources:
         # or 
         # echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDcPaIchJ5VuMX+/BT1uTuA9aiSME/z7Ev+YiV6aF5Nr9lZi0q2wOy1d424QmTITpEcOR3rmMQGUEMd4zv8mPvcee1bMV7g7xRvVtSs35KuedbIfchmdyQY8CARAJNHxMujzP0Sge7BJg/k2zDHTRFrCboLRiEdyb9xX6TseAMecH6x5/ixfoRyn7w+zqcbEO/BA0BmZqMdDet7Y/2tHJSmom8PupU5R/3Yu2+5RVL/zo6pzFKuxbgkKgkSDBLz5jvNGuutDgBLkDhc73VcwGWitloCm4KnRkXGHJZHmZxhhJakUhurLL6Vl1dyYUU6ITl1rK8TwlZW/FVPIppmvrDuwFh57USisg3sJQyXX/Ijr6JBz92O8Npkfj35LVMgCXKJksTAODqKQMKhUn4EFnAfhMu/gtjDyLWrjDJegrmV14Iazej2zWgK9s6MZS7WTX7x0F2xI69TzvoydU9LXZwhspH1z7dQMK3BK1YGjMJuxoXZna6QA9tyF66Y78CMKe/LciwickEzQZsDffjrpK4CKSzwfft4W7quTvkgaYja/cVjj3c0uEd++fJTYO4qHZylF6AiHnGAtqdZD2X3Fn1RhlVgelZNNFAhRfdQUEoS3iJJugzpwPsB6AhKlYFy7J0PzcJrhPVFWqsA110wuMC9usxfKW3wYmFEk2CBX9rAUw==" >> /home/ubuntu/.ssh/authorized_keys && \
       # Implement index.html
-      # Initialize git bare repo
+      # Implement git repo
+      # Implement post-receive hooks
       UserData:
         Fn::Base64:
           !Sub |
@@ -228,23 +229,25 @@ Resources:
             chgrp -R ubuntu /var/www/html && \
             sudo which git-shell >> /etc/shells && \
             adduser --quiet --disabled-password --shell /bin/bash --home /home/git --gecos "User" git && \
+            echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDcPaIchJ5VuMX+/BT1uTuA9aiSME/z7Ev+YiV6aF5Nr9lZi0q2wOy1d424QmTITpEcOR3rmMQGUEMd4zv8mPvcee1bMV7g7xRvVtSs35KuedbIfchmdyQY8CARAJNHxMujzP0Sge7BJg/k2zDHTRFrCboLRiEdyb9xX6TseAMecH6x5/ixfoRyn7w+zqcbEO/BA0BmZqMdDet7Y/2tHJSmom8PupU5R/3Yu2+5RVL/zo6pzFKuxbgkKgkSDBLz5jvNGuutDgBLkDhc73VcwGWitloCm4KnRkXGHJZHmZxhhJakUhurLL6Vl1dyYUU6ITl1rK8TwlZW/FVPIppmvrDuwFh57USisg3sJQyXX/Ijr6JBz92O8Npkfj35LVMgCXKJksTAODqKQMKhUn4EFnAfhMu/gtjDyLWrjDJegrmV14Iazej2zWgK9s6MZS7WTX7x0F2xI69TzvoydU9LXZwhspH1z7dQMK3BK1YGjMJuxoXZna6QA9tyF66Y78CMKe/LciwickEzQZsDffjrpK4CKSzwfft4W7quTvkgaYja/cVjj3c0uEd++fJTYO4qHZylF6AiHnGAtqdZD2X3Fn1RhlVgelZNNFAhRfdQUEoS3iJJugzpwPsB6AhKlYFy7J0PzcJrhPVFWqsA110wuMC9usxfKW3wYmFEk2CBX9rAUw==" >> /home/git/.ssh/authorized_keys && \
             git init --bare /home/git/mastersite.git && \
             touch /home/git/mastersite.git/hooks/post-receive && \
-            echo 'TARGET="/var/www/html"' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo 'GIT_DIR="/home/ubuntu/mastersite"' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo 'BRANCH="master" ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo 'while read oldrev newrev ref ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo 'do ' >> /home/git/mastersite.git/hooks/post-receive && \
+            chmod a+x /home/git/mastersite.git/hooks/post-receive && \
+            echo '#! /bin/bash/                                         ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo 'TARGET="/var/www/html"                                ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo 'GIT_DIR="/home/ubuntu/mastersite"                     ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo 'BRANCH="master"                                       ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo 'while read oldrev newrev ref                          ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo 'do                                                    ' >> /home/git/mastersite.git/hooks/post-receive && \
             echo '  # only checking out the master (or whatever branch you would like to deploy) ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo '  if [ "$ref" = "refs/heads/$BRANCH" ]; ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo '  then ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo '      echo "Ref $ref received. Deploying ${BRANCH} branch to production..." ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo '      git --work-tree=$TARGET --git-dir=$GIT_DIR checkout -f $BRANCH ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo '  else ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo '      echo "Ref $ref received. Doing nothing: only the ${BRANCH} branch may be deployed on this server." ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo '  fi ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo 'done ' >> /home/git/mastersite.git/hooks/post-receive && \
-            chmod a+x /home/git/mastersite.git/hooks/post-receive
+            echo '  if [ "$ref" = "refs/heads/$BRANCH" ];               ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo '  then                                                ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo '      echo "Ref $ref received. Deploying $BRANCH branch to production..." ' >> /home/git/mastersite.git/hooks/post-receive && \            
+            echo '      git --work-tree=$TARGET --git-dir=$GIT_DIR checkout -f $BRANCH' >> /home/git/mastersite.git/hooks/post-receive && \            
+            echo '  else                                                ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo '      echo "Ref $ref received. Doing nothing; only the ${BRANCH} branch may be deployed on this server."' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo '  fi                                                  ' >> /home/git/mastersite.git/hooks/post-receive && \            
+            echo 'done                                                  ' >> /home/git/mastersite.git/hooks/post-receive && \            
             chown -R git /home/git/ && \
             chgrp -R git /home/git/ && 
             chmod 600 /home/ubuntu/.ssh/authorized_keys && \
@@ -280,6 +283,8 @@ Resources:
       # Implement Meaningful conventions
       # Implement public key link for proxy
       # Implement index.html
+      # Implement git repo
+      # Implement post-receive hooks
       UserData:
         Fn::Base64:
           !Sub |
@@ -301,23 +306,25 @@ Resources:
             chgrp -R ubuntu /var/www/html && \
             sudo which git-shell >> /etc/shells && \
             adduser --quiet --disabled-password --shell /bin/bash --home /home/git --gecos "User" git && \
+            echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDcPaIchJ5VuMX+/BT1uTuA9aiSME/z7Ev+YiV6aF5Nr9lZi0q2wOy1d424QmTITpEcOR3rmMQGUEMd4zv8mPvcee1bMV7g7xRvVtSs35KuedbIfchmdyQY8CARAJNHxMujzP0Sge7BJg/k2zDHTRFrCboLRiEdyb9xX6TseAMecH6x5/ixfoRyn7w+zqcbEO/BA0BmZqMdDet7Y/2tHJSmom8PupU5R/3Yu2+5RVL/zo6pzFKuxbgkKgkSDBLz5jvNGuutDgBLkDhc73VcwGWitloCm4KnRkXGHJZHmZxhhJakUhurLL6Vl1dyYUU6ITl1rK8TwlZW/FVPIppmvrDuwFh57USisg3sJQyXX/Ijr6JBz92O8Npkfj35LVMgCXKJksTAODqKQMKhUn4EFnAfhMu/gtjDyLWrjDJegrmV14Iazej2zWgK9s6MZS7WTX7x0F2xI69TzvoydU9LXZwhspH1z7dQMK3BK1YGjMJuxoXZna6QA9tyF66Y78CMKe/LciwickEzQZsDffjrpK4CKSzwfft4W7quTvkgaYja/cVjj3c0uEd++fJTYO4qHZylF6AiHnGAtqdZD2X3Fn1RhlVgelZNNFAhRfdQUEoS3iJJugzpwPsB6AhKlYFy7J0PzcJrhPVFWqsA110wuMC9usxfKW3wYmFEk2CBX9rAUw==" >> /home/git/.ssh/authorized_keys && \            
             git init --bare /home/git/mastersite.git && \
             touch /home/git/mastersite.git/hooks/post-receive && \
-            echo 'TARGET="/var/www/html"' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo 'GIT_DIR="/home/ubuntu/mastersite"' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo 'BRANCH="master" ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo 'while read oldrev newrev ref ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo 'do ' >> /home/git/mastersite.git/hooks/post-receive && \
+            chmod a+x /home/git/mastersite.git/hooks/post-receive && \
+            echo '#! /bin/bash/                                         ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo 'TARGET="/var/www/html"                                ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo 'GIT_DIR="/home/ubuntu/mastersite"                     ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo 'BRANCH="master"                                       ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo 'while read oldrev newrev ref                          ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo 'do                                                    ' >> /home/git/mastersite.git/hooks/post-receive && \
             echo '  # only checking out the master (or whatever branch you would like to deploy) ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo '  if [ "$ref" = "refs/heads/$BRANCH" ]; ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo '  then ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo '      echo "Ref $ref received. Deploying ${BRANCH} branch to production..." ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo '      git --work-tree=$TARGET --git-dir=$GIT_DIR checkout -f $BRANCH ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo '  else ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo '      echo "Ref $ref received. Doing nothing: only the ${BRANCH} branch may be deployed on this server." ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo '  fi ' >> /home/git/mastersite.git/hooks/post-receive && \
-            echo 'done ' >> /home/git/mastersite.git/hooks/post-receive && \
-            chmod a+x /home/git/mastersite.git/hooks/post-receive
+            echo '  if [ "$ref" = "refs/heads/$BRANCH" ];               ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo '  then                                                ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo '      echo "Ref $ref received. Deploying $BRANCH branch to production..." ' >> /home/git/mastersite.git/hooks/post-receive && \            
+            echo '      git --work-tree=$TARGET --git-dir=$GIT_DIR checkout -f $BRANCH ' >> /home/git/mastersite.git/hooks/post-receive && \            
+            echo '  else                                                ' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo '      echo "Ref $ref received. Doing nothing; only the ${BRANCH} branch may be deployed on this server."' >> /home/git/mastersite.git/hooks/post-receive && \
+            echo '  fi                                                  ' >> /home/git/mastersite.git/hooks/post-receive && \            
+            echo 'done                                                  ' >> /home/git/mastersite.git/hooks/post-receive && \            
             chown -R git /home/git/ && \
             chgrp -R git /home/git/ && 
             chmod 600 /home/ubuntu/.ssh/authorized_keys && \
@@ -440,7 +447,6 @@ Resources:
             mv /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.original && \
             wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/haproxy.cfg && \
             mv haproxy.cfg /etc/haproxy/haproxy.cfg && \
-            git clone/home/ubuntu/repository && \
             chown -R ubuntu /home/ubuntu/ && \
             chgrp -R ubuntu /home/ubuntu/ && \
             service haproxy start && \
