@@ -27,7 +27,9 @@
 ## Today
 
 ## 2/12/2020
+- Before  
 ![before haproxy](images/project2-loadbalancer-before.png)  
+- After  
 ![after haproxy](images/project2-loadbalancer-after.png)  
 - Configured template for /.git/hooks/post-receive script
   - touch /home/ubuntu/repository/.git/hooks/post-receive && \
