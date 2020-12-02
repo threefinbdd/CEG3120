@@ -231,8 +231,8 @@ Resources:
             touch /home/git/.ssh/authorized_keys && \
             echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDcPaIchJ5VuMX+/BT1uTuA9aiSME/z7Ev+YiV6aF5Nr9lZi0q2wOy1d424QmTITpEcOR3rmMQGUEMd4zv8mPvcee1bMV7g7xRvVtSs35KuedbIfchmdyQY8CARAJNHxMujzP0Sge7BJg/k2zDHTRFrCboLRiEdyb9xX6TseAMecH6x5/ixfoRyn7w+zqcbEO/BA0BmZqMdDet7Y/2tHJSmom8PupU5R/3Yu2+5RVL/zo6pzFKuxbgkKgkSDBLz5jvNGuutDgBLkDhc73VcwGWitloCm4KnRkXGHJZHmZxhhJakUhurLL6Vl1dyYUU6ITl1rK8TwlZW/FVPIppmvrDuwFh57USisg3sJQyXX/Ijr6JBz92O8Npkfj35LVMgCXKJksTAODqKQMKhUn4EFnAfhMu/gtjDyLWrjDJegrmV14Iazej2zWgK9s6MZS7WTX7x0F2xI69TzvoydU9LXZwhspH1z7dQMK3BK1YGjMJuxoXZna6QA9tyF66Y78CMKe/LciwickEzQZsDffjrpK4CKSzwfft4W7quTvkgaYja/cVjj3c0uEd++fJTYO4qHZylF6AiHnGAtqdZD2X3Fn1RhlVgelZNNFAhRfdQUEoS3iJJugzpwPsB6AhKlYFy7J0PzcJrhPVFWqsA110wuMC9usxfKW3wYmFEk2CBX9rAUw==" >> /home/git/.ssh/authorized_keys && \
             git init --bare /home/git/mastersite.git && \
-            wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/hooky
-            mv hooky /home/git/mastersite.git/hooks/post-receive            
+            wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/hooky && \
+            mv hooky /home/git/mastersite.git/hooks/post-receive && \
             touch /home/git/mastersite.git/hooks/post-receive && \
             chmod a+x /home/git/mastersite.git/hooks/post-receive && \
             chown -R git /home/git/ && \
@@ -299,8 +299,8 @@ Resources:
             git init --bare /home/git/mastersite.git && \
             touch /home/git/mastersite.git/hooks/post-receive && \
             chmod a+x /home/git/mastersite.git/hooks/post-receive && \
-            wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/hooky
-            mv hooky /home/git/mastersite.git/hooks/post-receive
+            wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/hooky && \
+            mv hooky /home/git/mastersite.git/hooks/post-receive && \
             chown -R git /home/git/ && \
             chgrp -R git /home/git/ && \
             chown -R git /var/www/html && \
