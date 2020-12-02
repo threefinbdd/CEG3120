@@ -217,11 +217,14 @@ Resources:
               vim \
               wget \
               python3-dev \
+              git \
               apache2 && \
             echo "webserv1" > /etc/hostname && \
             echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDcPaIchJ5VuMX+/BT1uTuA9aiSME/z7Ev+YiV6aF5Nr9lZi0q2wOy1d424QmTITpEcOR3rmMQGUEMd4zv8mPvcee1bMV7g7xRvVtSs35KuedbIfchmdyQY8CARAJNHxMujzP0Sge7BJg/k2zDHTRFrCboLRiEdyb9xX6TseAMecH6x5/ixfoRyn7w+zqcbEO/BA0BmZqMdDet7Y/2tHJSmom8PupU5R/3Yu2+5RVL/zo6pzFKuxbgkKgkSDBLz5jvNGuutDgBLkDhc73VcwGWitloCm4KnRkXGHJZHmZxhhJakUhurLL6Vl1dyYUU6ITl1rK8TwlZW/FVPIppmvrDuwFh57USisg3sJQyXX/Ijr6JBz92O8Npkfj35LVMgCXKJksTAODqKQMKhUn4EFnAfhMu/gtjDyLWrjDJegrmV14Iazej2zWgK9s6MZS7WTX7x0F2xI69TzvoydU9LXZwhspH1z7dQMK3BK1YGjMJuxoXZna6QA9tyF66Y78CMKe/LciwickEzQZsDffjrpK4CKSzwfft4W7quTvkgaYja/cVjj3c0uEd++fJTYO4qHZylF6AiHnGAtqdZD2X3Fn1RhlVgelZNNFAhRfdQUEoS3iJJugzpwPsB6AhKlYFy7J0PzcJrhPVFWqsA110wuMC9usxfKW3wYmFEk2CBX9rAUw==" >> /home/ubuntu/.ssh/authorized_keys && \
             wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/index-serv1.html && \
             mv index-serv1.html /var/www/html/index.html && \
+            chown -R ubuntu /var/www/html && \
+            chgrp -R ubuntu /var/www/html && \
             chmod 600 /home/ubuntu/.ssh/authorized_keys && \
             chown -R ubuntu /home/ubuntu/.ssh && \
             chgrp -R ubuntu /home/ubuntu/.ssh && \
@@ -264,14 +267,16 @@ Resources:
               python \
               nmap \
               vim \
-              git \
               wget \
               python3-dev \
+              git \
               apache2 && \
             echo "webserv2" > /etc/hostname && \
             echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDcPaIchJ5VuMX+/BT1uTuA9aiSME/z7Ev+YiV6aF5Nr9lZi0q2wOy1d424QmTITpEcOR3rmMQGUEMd4zv8mPvcee1bMV7g7xRvVtSs35KuedbIfchmdyQY8CARAJNHxMujzP0Sge7BJg/k2zDHTRFrCboLRiEdyb9xX6TseAMecH6x5/ixfoRyn7w+zqcbEO/BA0BmZqMdDet7Y/2tHJSmom8PupU5R/3Yu2+5RVL/zo6pzFKuxbgkKgkSDBLz5jvNGuutDgBLkDhc73VcwGWitloCm4KnRkXGHJZHmZxhhJakUhurLL6Vl1dyYUU6ITl1rK8TwlZW/FVPIppmvrDuwFh57USisg3sJQyXX/Ijr6JBz92O8Npkfj35LVMgCXKJksTAODqKQMKhUn4EFnAfhMu/gtjDyLWrjDJegrmV14Iazej2zWgK9s6MZS7WTX7x0F2xI69TzvoydU9LXZwhspH1z7dQMK3BK1YGjMJuxoXZna6QA9tyF66Y78CMKe/LciwickEzQZsDffjrpK4CKSzwfft4W7quTvkgaYja/cVjj3c0uEd++fJTYO4qHZylF6AiHnGAtqdZD2X3Fn1RhlVgelZNNFAhRfdQUEoS3iJJugzpwPsB6AhKlYFy7J0PzcJrhPVFWqsA110wuMC9usxfKW3wYmFEk2CBX9rAUw==" >> /home/ubuntu/.ssh/authorized_keys && \
             wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/index-serv2.html && \
             mv index-serv2.html /var/www/html/index.html && \
+            chown -R ubuntu /var/www/html && \
+            chgrp -R ubuntu /var/www/html && \
             chmod 600 /home/ubuntu/.ssh/authorized_keys && \
             chown -R ubuntu /home/ubuntu/.ssh && \
             chgrp -R ubuntu /home/ubuntu/.ssh && \
@@ -308,6 +313,7 @@ Resources:
       # Configure .ssh/config file 
       # Configure directory/file permissions 
       # Configure HAProxy Load Balancer
+      # Initialize bare bones git repository
       UserData:
         Fn::Base64:
           !Sub |
@@ -320,10 +326,11 @@ Resources:
               wget \
               python3-dev \
               haproxy \
+              git \
               apache2 && \
             echo "proxy-server" > /etc/hostname && \
-            echo -e "10.0.0.20\t ldap-server" >> /etc/hosts && \
-            echo -e "10.0.0.25\t git-server" >> /etc/hosts && \
+            echo -e "10.0.0.20\t webserv1" >> /etc/hosts && \
+            echo -e "10.0.0.25\t webserv2" >> /etc/hosts && \
             echo "-----BEGIN RSA PRIVATE KEY-----" >>  /home/ubuntu/.ssh/haproxy_key && \
             echo "MIIJKgIBAAKCAgEA3D2iHISeVbjF/vwU9bk7gPWokjBP8+xL/mIlemheTa/ZWYtK" >>  /home/ubuntu/.ssh/haproxy_key && \
             echo "tsDstXeNuEJkyE6RHDkd65jEBlBDHeM7/Jj73HntWzFe4O8Ub1bUrN+SrnnWyH3I" >>  /home/ubuntu/.ssh/haproxy_key && \
@@ -387,7 +394,16 @@ Resources:
             mv /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.original && \
             wget https://raw.githubusercontent.com/pattonsgirl/Fall2020-CEG3120/master/Projects/Project2/haproxy.cfg && \
             mv haproxy.cfg /etc/haproxy/haproxy.cfg && \
-            chown -R ubuntu /home/ubuntu/.ssh && \
-            chgrp -R ubuntu /home/ubuntu/.ssh && \
+            sudo which git-shell >> /etc/shells && \
+            adduser --quiet --disabled-password --shell /bin/bash --home /home/git --gecos "User" git && \
+            git init --bare /home/git/.git && \
+            git clone /home/git/.git /home/ubuntu/repository && \
+            touch /home/ubuntu/repository/.git/hooks/post-receive && \
+            echo "scp  /home/ubuntu/repository/index.html webserv1:/var/www/html/index.html" >> /home/ubuntu/repository/.git/hooks/post-receive && \
+            echo "scp  /home/ubuntu/repository/index.html webserv2:/var/www/html/index.html" >> /home/ubuntu/repository/.git/hooks/post-receive && \
+            chown -R git /home/git/ && \
+            chgrp -R git /home/git/ && \
+            chown -R ubuntu /home/ubuntu/ && \
+            chgrp -R ubuntu /home/ubuntu/ && \
             service haproxy start && \
             reboot
