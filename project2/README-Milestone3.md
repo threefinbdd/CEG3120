@@ -2,12 +2,6 @@
 - Load Balancing:  https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps
 - Reference for Extra Credit: [Project2v2 README.md: 9/11/2020 changes](AboutMe-2.2.md)
 
-## TO REMOVE
-        Will this clone over? 
-            touch /home/git/.git/hooks/post-receive && \
-            echo "scp -i /home/ubuntu/.ssh/haproxy_key /var/www/html/index.html ubuntu@webserv1:/var/www/html/index.html" >> /home/git/repository/hooks/post-receive && \
-            echo "scp -i /home/ubuntu/.ssh/haproxy_key /home/ubuntu/testfile ubuntu@webserv2:/var/www/html/index.html" >> /home/git/repository/hooks/post-receive && \
-
 ## Load Balancer Configuration
 1) Set up 3 instances with package install of apache2
 2) Set up 1 of 3 instance with package install of haproxy
@@ -23,11 +17,13 @@
 2) Initialize a bare bones .git repository
 3) Clone bare bones repository into developing environment
 4) Create a post-receive hook to run with git push  
-  a) Script inside post-receive hook will scp git repository version of index.html into web servers' /var/www/html/index  
+  a) Script inside post-receive hook per webserver retreives pushed files and targets /var/www/html as destination directory  
+  x) Removed: Script inside post-receive hook will scp git repository version of index.html into web servers' /var/www/html/index  
   
 ## Today
 
 ## 2/12/2020
+- Converted post-receive script to scope of individual push to machines
 - Before  
 ![before haproxy](images/project2-loadbalancer-before.png)  
 - After  
