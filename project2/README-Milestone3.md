@@ -27,8 +27,8 @@
 ## Today
 
 ## 2/12/2020
-![before haproxy](images/project2-loadbalancer-before.PNG)  
-![after haproxy](images/project2-loadbalancer-after.PNG)  
+![before haproxy](images/project2-loadbalancer-before.png)  
+![after haproxy](images/project2-loadbalancer-after.png)  
 - Configured template for /.git/hooks/post-receive script
   - touch /home/ubuntu/repository/.git/hooks/post-receive && \
   - echo "scp -i /home/ubuntu/.ssh/haproxy_key /home/ubuntu/index.html ubuntu@webserv1:/var/www/html/index.html" >> /home/ubuntu/repository/.git/hooks/post-receive && \
